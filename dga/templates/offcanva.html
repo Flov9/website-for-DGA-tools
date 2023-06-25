@@ -1,0 +1,46 @@
+<div
+  class="offcanvas offcanvas-start scrollable-area"
+  tabindex="-1"
+  id="offcanvasExample"
+  aria-labelledby="offcanvasExampleLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+      Select transformer
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <!-- Adding or deleting transformer buttons -->
+
+    <form action="" method="POST">
+      <div class="d-flex justify-content-evenly">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#transformerModal"
+          name="action"
+          value="addTransformer"
+        >
+          Add a transformer
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-toggle="modal"
+          data-bs-target="#transformerModal"
+          name="action"
+          value="deleteTransformer"
+        >
+          Delete a transformer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
