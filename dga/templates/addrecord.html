@@ -1,0 +1,172 @@
+<form
+        action=""
+        method="POST"
+        autocomplete="off"
+>
+    <div class="modal fade" id="addRecordModal" aria-hidden="true" aria-labelledby="addRecordModalToggleLabel"
+         tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Add a Record</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="mt-2">Gaseous Concentration %:</h6>
+                    <div class="row row-cols-3 gx-4 gy-3 mb-4">
+                        <div class="col form__group field">
+                            <input
+                                    id="hydrogen"
+                                    name="hydrogen"
+                                    class="form__field"
+                                    style="outline: none"
+                                    placeholder="Hydrogen"
+                                    required
+                                    pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
+                            />
+                            <label for="hydrogen" class="form__label">Hydrogen</label>
+                        </div>
+                        <div class="col form__group field">
+                            <input
+                                    id="methane"
+                                    name="methane"
+                                    class="form__field"
+                                    style="outline: none"
+                                    placeholder="Methane"
+                                    required
+                                    pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
+                            />
+                            <label for="methane" class="form__label">Methane</label>
+                        </div>
+                        <div class="col form__group field">
+                            <input
+                                    id="acetylene"
+                                    name="acetylene"
+                                    class="form__field"
+                                    style="outline: none"
+                                    placeholder="Acetylene"
+                                    required
+                                    pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
+                            />
+                            <label for="acetylene" class="form__label">Acetylene</label>
+                        </div>
+                        <div class="col form__group field">
+                            <input
+                                    id="ethylene"
+                                    name="ethylene"
+                                    class="form__field"
+                                    style="outline: none"
+                                    placeholder="Ethylene"
+                                    required
+                                    pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
+                            />
+                            <label for="ethylene" class="form__label">Ethylene</label>
+                        </div>
+                        <div class="col form__group field">
+                            <input
+                                    id="ethane"
+                                    name="ethane"
+                                    class="form__field"
+                                    style="outline: none"
+                                    placeholder="Ethane"
+                                    required
+                                    pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
+                            />
+                            <label for="ethane" class="form__label">Ethane</label>
+                        </div>
+                        <div class="col form__group field">
+                            <input
+                                    id="cmonoxide"
+                                    name="cmonoxide"
+                                    class="form__field"
+                                    style="outline: none"
+                                    placeholder="Carbon Monoxide"
+                                    required
+                                    pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
+                            />
+                            <label for="cmonoxide" class="form__label">Carbon Monoxide</label>
+                        </div>
+                        <div class="col form__group field">
+                            <input
+                                    id="cdioxide"
+                                    name="cdioxide"
+                                    class="form__field"
+                                    style="outline: none"
+                                    placeholder="Carbon Dioxide"
+                                    required
+                                    pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
+                            />
+                            <label for="cdioxide" class="form__label">Carbon Dioxide</label>
+                        </div>
+                    </div>
+                    <h6 class="mt-5 mb-0">Select a Transformer:</h6>
+                    <div class="row row-cols-4 gx-1 mb-3">
+                        {% if transformers == None %}
+                        <div class="col alert alert-danger text-danger" role="alert">
+                            No transformers found. Please add a transformer first at Record
+                            page.
+                        </div>
+                        {% else %} {% for transformer in transformers %}
+                        <div class="col form__group field">
+                            <div class="form-check">
+                                <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="transformerRadio"
+                                        id="transformerRadio{{ transformer }}"
+                                        value="{{ transformer }}"
+                                        style="cursor: pointer;"
+                                        required
+                                />
+                                <label class="form-check-label" for="transformerRadio{{ transformer }}"
+                                       style="cursor: pointer;">
+                                    {{ transformer }}
+                                </label>
+                            </div>
+                        </div>
+                        {% endfor %} {% endif %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                            class="record-button on-hover-form-btn"
+                            type="reset"
+                            value="Reset"
+                    >
+                        <span class="text-nowrap">Reset</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                             class="bi bi-eraser-fill" viewBox="0 0 16 16">
+                            <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
+                        </svg>
+                    </button>
+                    <button
+                            class="record-button on-hover-form-btn"
+                            type="submit"
+                            id=""
+                            name="action"
+                            value="record"
+                    >
+                        <span class="text-nowrap">Add Record</span>
+                        <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="25"
+                                height="25"
+                                fill="currentColor"
+                                class="bi bi-arrow-right-circle"
+                                viewBox="0 0 16 16"
+                        >
+                            <path
+                                    fill-rule="evenodd"
+                                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- flash messages -->
+    <div class="position-absolute top-50 start-100 translate-middle text-nowrap offset-10">
+        {% include 'flash_messages.html' %}
+    </div>
+</form>
