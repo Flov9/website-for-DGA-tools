@@ -1,215 +1,59 @@
 {% extends "base.html" %} {% block content %}
 <div class="container d-flex flex-column">
-  <form
-    class="d-flex gap-0 m-1 px-5 py-3 card card-body"
-    action=""
-    method="POST"
-    autocomplete="off"
-  >
-    <!-- Inputs -->
-
-    <div class="row row-cols-4 gx-5 gy-3 justify-content-around mb-3">
-      <div class="col form__group field">
-        <input
-          id="hydrogen"
-          name="hydrogen"
-          type="input"
-          class="form__field"
-          placeholder="Hydrogen"
-          required=""
-          pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
-        />
-        <label for="hydrogen" class="form__label">Hydrogen</label>
-      </div>
-      <div class="col form__group field">
-        <input
-          id="methane"
-          name="methane"
-          type="input"
-          class="form__field"
-          placeholder="Methane"
-          required=""
-          pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
-        />
-        <label for="methane" class="form__label">Methane</label>
-      </div>
-      <div class="col form__group field">
-        <input
-          id="acetylene"
-          name="acetylene"
-          type="input"
-          class="form__field"
-          placeholder="Acetylene"
-          required=""
-          pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
-        />
-        <label for="acetylene" class="form__label">Acetylene</label>
-      </div>
-      <div class="col form__group field">
-        <input
-          id="ethylene"
-          name="ethylene"
-          type="input"
-          class="form__field"
-          placeholder="Ethylene"
-          required=""
-          pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
-        />
-        <label for="ethylene" class="form__label">Ethylene</label>
-      </div>
-      <div class="col form__group field">
-        <input
-          id="ethane"
-          name="ethane"
-          type="input"
-          class="form__field"
-          placeholder="Ethane"
-          required=""
-          pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
-        />
-        <label for="ethane" class="form__label">Ethane</label>
-      </div>
-      <div class="col form__group field">
-        <input
-          id="cmonoxide"
-          name="cmonoxide"
-          type="input"
-          class="form__field"
-          placeholder="Carbon Monoxide"
-          required=""
-          pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
-        />
-        <label for="cmonoxide" class="form__label">Carbon Monoxide</label>
-      </div>
-      <div class="col form__group field">
-        <input
-          id="cdioxide"
-          name="cdioxide"
-          type="input"
-          class="form__field"
-          placeholder="Carbon Dioxide"
-          required=""
-          pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
-        />
-        <label for="cdioxide" class="form__label">Carbon Dioxide</label>
-      </div>
-      <!-- <div class="col form__group field">
-        <input
-          id="total"
-          name="total"
-          type="input"
-          class="form__field"
-          placeholder="Total Dissolve Combustibles"
-          required=""
-          pattern="^(99|[1-9][0-9]?)(\.\d{1,2})?$"
-        />
-        <label for="total" class="form__label"
-          >Total Dissolve Combustibles</label
-        >
-      </div> -->
-    </div>
-
-    <!-- Record button -->
-
-    <div class="align-self-center position-relative">
-      <button
-        class="record-button"
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#recordModal"
-        id=""
-        name="action"
-        value="record"
-      >
-        <span class="text-nowrap">Add record</span>
-        <svg
-          width="34"
-          height="34"
-          viewBox="0 0 74 74"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="37"
-            cy="37"
-            r="35.5"
-            stroke="black"
-            stroke-width="3"
-          ></circle>
-          <path
-            d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z"
-            fill="black"
-          ></path>
-        </svg>
-      </button>
-
-      {% include 'modal.html' %}
-      <!-- flash messages -->
-
-      <div
-        class="position-absolute top-50 start-100 translate-middle text-nowrap offset-10"
-      >
-        {% include 'flash_messages.html' %}
-      </div>
-    </div>
-  </form>
-
-  <form
-    class="d-flex justify-content-evenly align-items-center m-1"
-    action=""
-    id="image-form"
-  >
-    <span class="text-nowrap fw-semibold"
-      >Display two tools of the latest record:</span
+    <form
+            class="d-flex justify-content-evenly align-items-center m-1"
+            action=""
+            id="image-form"
     >
+        <span class="text-nowrap fw-semibold">
+            Display two tools of the latest record:
+        </span>
 
-    {% for image in image_paths %}
+        {% for image in image_paths %}
 
-    <!-- DGA selection -->
+        <!-- DGA selection -->
+        <div class="form-check">
+            <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value="{{ image }}"
+                    name="image"
+                    id="flexCheckDefault"
+            />
+            <label class="form-check-label" for="flexCheckDefault">
+                {{ image }}
+            </label>
+        </div>
 
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value="{{ image }}"
-        name="image"
-        id="flexCheckDefault"
-      />
-      <label class="form-check-label" for="flexCheckDefault">
-        {{ image }}
-      </label>
-    </div>
+        {% endfor %}
 
-    {% endfor %}
-
-    <button
-      type="submit"
-      class="record-button"
-      id="show-button"
-      name="action"
-      value="show"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="25"
-        height="25"
-        fill="currentColor"
-        class="bi bi-arrow-right-circle"
-        viewBox="0 0 16 16"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"
-        />
-      </svg>
-    </button>
-  </form>
-
-  <!-- Image display -->
-
-  <div
-    class="d-flex flex-grow-1 flex-shrink-1 justify-content-evenly"
-    id="selected-images"
-  ></div>
+        <button
+                type="submit"
+                class="record-button"
+                id="show-button"
+                name="action"
+                value="show"
+        >
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="25"
+                    fill="currentColor"
+                    class="bi bi-arrow-right-circle"
+                    viewBox="0 0 16 16"
+            >
+                <path
+                        fill-rule="evenodd"
+                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"
+                />
+            </svg>
+        </button>
+    </form>
+    {% include 'addrecord.html' %}
+    <!-- Image display -->
+    <div
+            class="d-flex flex-grow-1 flex-shrink-1 justify-content-evenly"
+            id="selected-images"
+    ></div>
 </div>
 {% endblock %}

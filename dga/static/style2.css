@@ -7,7 +7,7 @@
 }
 
 #custom-link a {
-    color: hsl(265, 44%, 39%);
+    color: #bc2128;
   position: relative;
   text-decoration: none;
   font-family: var(--ff-primary);
@@ -19,7 +19,7 @@
   width: 100%;
   height: 4px;
   border-radius: 4px;
-  background-color: var(--clr-primary-400);
+  background-color: #bc2128;
   bottom: 0;
   left: 0;
   transform-origin: right;
@@ -35,6 +35,7 @@
 .custom-btn {
     width: 140px;
     height: 40px;
+    color: #bc2128 !important;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -50,12 +51,12 @@
 
   .custom-btn a {
     text-decoration: none;
-    color: var(--clr-primary-400);
+    color: #bc2128;
   }
   
   .custom-btn::after {
     content: '';
-    border-bottom: 3px double var(--clr-primary-400);
+    border-bottom: 3px double #bc2128;
     width: 0;
     height: 100%;
     position: absolute;
@@ -71,6 +72,7 @@
     transform: translateX(0%);
     transition: .2s linear;
     animation: attention 1.2s linear infinite;
+    border: #bc2128;
   }
   
   .custom-btn:hover::after {
@@ -114,7 +116,8 @@
   }
   
   .record-button:hover {
-    background: var(--clr-primary-400);
+    background: #bc2128;
+    color: white;
   }
   
   .record-button > svg {
