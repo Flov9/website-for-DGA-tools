@@ -1,3 +1,11 @@
+$(document).ready(function() {
+    if (window.location.pathname != null) {
+        $('#upmHeaderLogo').attr('src', '../static/images/upm-logo.png')
+    } else {
+        $('#upmHeaderLogo').attr('src', '/static/images/upm-logo.png')
+    }
+})
+
 $(function() {
     var limit = 3;
 

@@ -26,7 +26,7 @@ def init_dashboard(server):
     #     for tf in df["transformerList"]:
     #         tf_dropdown.append({"label": tf, "value": tf})
     #     return tf_dropdown
-
+    # testtttt
     def init_month_list():
         month_dropdown = []
         mth = 0
@@ -39,14 +39,14 @@ def init_dashboard(server):
     # Create Dash Layout using Bootstrap components
     dash_app.layout = dbc.Container([
         dbc.Row([
-            html.H1(
+            html.H4(
                 "Graph of Gas Concentration against Date",
-                className="text-primary text-center fs-5 fw-3"
+                className="text-center mt-3 mb-5"
             )
         ]),
         dbc.Row([
             dbc.Col([
-                dbc.Label("Pick Transformer", className="text-secondary fs-5 my-1"),
+                dbc.Label("Pick Transformer", className="text-secondary text-center d-block fs-5 my-1"),
                 dcc.Dropdown(
                     id="tx_dropdown",
                     options=[
@@ -58,14 +58,11 @@ def init_dashboard(server):
                     ],
                     # options=init_dynamic_list(),
                     value="TX1",
-                    clearable=False,
-                    style={
-                        "width": "50%",
-                    }
+                    clearable=False
                 )
-            ]),
+            ], width=2),
             dbc.Col([
-                dbc.Label("Pick Month", className="text-secondary fs-5 my-1"),
+                dbc.Label("Pick Month", className="text-secondary text-center d-block fs-5 my-1"),
                 dcc.Dropdown(
                     id="month_dropdown",
                     # options=[
@@ -84,14 +81,11 @@ def init_dashboard(server):
                     # ],
                     options=init_month_list(),
                     value=init_month_list()[0]["value"],
-                    clearable=False,
-                    style={
-                        "width": "50%",
-                    }
+                    clearable=False
                 )
-            ]),
+            ], width=2),
             dbc.Col([
-                dbc.Label("Pick Gas", className="text-secondary fs-5 my-1"),
+                dbc.Label("Pick Gas", className="text-secondary text-center d-block fs-5 my-1"),
                 dcc.Dropdown(
                     id="gas_dropdown",
                     options=[
@@ -104,13 +98,10 @@ def init_dashboard(server):
                         {"label": "Methane", "value": "Methane"},
                     ],
                     value="Acetylene",
-                    clearable=False,
-                    style={
-                        "width": "50%",
-                    }
+                    clearable=False
                 )
-            ])
-        ]),
+            ], width=2)
+        ], justify="evenly"),
         # dbc.Row([
         #     html.H2(
         #         "Transformer TX1",
@@ -182,7 +173,7 @@ def init_callbacks(dash_app):
                 filtered_graph.drop(i, inplace=True)
                 continue
 
-        colors = {"background": "hsl(279, 100%, 97%)", "text": "#7FDBFF"}
+        colors = {"text": "#7FDBFF"}
 
         # Create the time series graph
         fig = go.Figure()
@@ -190,8 +181,9 @@ def init_callbacks(dash_app):
             go.Scatter(
                 x=filtered_graph["Date"],
                 y=filtered_graph["Gas Concentration % ({})".format(gas_dropdown)],
-                mode="markers",
+                mode="lines+markers",
                 name="Fault Type",
+                marker=dict(color='#bc2128', line=dict(color='#bc2128')),
                 # hovertemplate="Record: %{customdata[0]}<br>"
                 # + "Acetylene: %{customdata[1]}%<br>"
                 # + "Hydrogen: %{customdata[2]}%<br>"
@@ -215,6 +207,8 @@ def init_callbacks(dash_app):
             )
         )
 
+        fig.layout.plot_bgcolor = "#f8f8f8"
+
         fig.update_traces(
             marker=dict(size=14, line=dict(width=2), symbol="circle"),
         )
@@ -226,8 +220,7 @@ def init_callbacks(dash_app):
                 showline=True,
                 showgrid=True,
             ),
-            paper_bgcolor=colors["background"],
-            font=dict(color="black", size=14),
+            font=dict(size=14),
             hovermode="closest",
         )
 
