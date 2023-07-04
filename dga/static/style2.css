@@ -129,6 +129,7 @@
   .record-button:hover svg {
     transform: translateX(5px);
     color: white;
+    fill: white;
   }
   
   .record-button:active {
@@ -185,7 +186,8 @@
     padding-bottom: 6px;
     font-weight: 700;
     border-width: 3px;
-    border-image: linear-gradient(to right, rgba(138,15,149,1), rgba(255,57,237,1));
+    /* border-image: linear-gradient(to right, rgba(138,15,149,1), rgba(255,57,237,1)); */
+    border-color: #bc2128;
     border-image-slice: 1;
   }
   
@@ -195,7 +197,8 @@
     display: block;
     transition: 0.2s;
     font-size: 14px;
-    color: var(--clr-primary-400);
+    /* color: var(--clr-primary-400); */
+    color: #bc2128;
     font-weight: 700;
   }
   
