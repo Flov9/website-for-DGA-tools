@@ -12,6 +12,7 @@ def create_dataframe():
 
         transformer_list = []
         timestamp_list = []
+        dateonly_list = []
         fault_type_list = []
         record_tag_list = []
         gaseous_list = []
@@ -32,6 +33,7 @@ def create_dataframe():
                     timestamp = pd.to_datetime(data.val()["timestamp"], unit="s")
                     # print(timestamp)
                     timestamp_list.append(timestamp)
+                    dateonly_list.append(timestamp.strftime("%d %b %Y"))
 
                     fault_type = [
                         data.val()["fault_type"].get(tool)
@@ -50,25 +52,14 @@ def create_dataframe():
                 "Record": record_tag_list,
                 "Transformer": transformer_list,
                 "Date": timestamp_list,
+                "Date Only": dateonly_list,
                 "Gas Concentration % (Acetylene)": [gas[0] for gas in gaseous_list],
                 "Gas Concentration % (Carbon Dioxide)": [gas[1] for gas in gaseous_list],
                 "Gas Concentration % (Carbon Monoxide)": [gas[2] for gas in gaseous_list],
                 "Gas Concentration % (Ethane)": [gas[3] for gas in gaseous_list],
                 "Gas Concentration % (Ethylene)": [gas[4] for gas in gaseous_list],
                 "Gas Concentration % (Hydrogen)": [gas[5] for gas in gaseous_list],
-                "Gas Concentration % (Methane)": [gas[6] for gas in gaseous_list],
-                # "Date (January)": [ts for ts in timestamp_list if ts.month == 1],
-                # "Date (February)": [ts for ts in timestamp_list if ts.month == 2],
-                # "Date (March)": [ts for ts in timestamp_list if ts.month == 3],
-                # "Date (April)": [ts for ts in timestamp_list if ts.month == 4],
-                # "Date (May)": [ts for ts in timestamp_list if ts.month == 5],
-                # "Date (June)": [ts for ts in timestamp_list if ts.month == 6],
-                # "Date (July)": [ts for ts in timestamp_list if ts.month == 7],
-                # "Date (August)": [ts for ts in timestamp_list if ts.month == 8],
-                # "Date (September)": [ts for ts in timestamp_list if ts.month == 9],
-                # "Date (October)": [ts for ts in timestamp_list if ts.month == 10],
-                # "Date (November)": [ts for ts in timestamp_list if ts.month == 11],
-                # "Date (December)": [ts for ts in timestamp_list if ts.month == 12]
+                "Gas Concentration % (Methane)": [gas[6] for gas in gaseous_list]
             }
         )
 

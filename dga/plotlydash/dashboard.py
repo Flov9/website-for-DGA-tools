@@ -161,7 +161,7 @@ def init_callbacks(dash_app):
     def update_output(tx_dropdown, month_dropdown, gas_dropdown):
         df = create_dataframe()
         # Filter the DataFrame based on the selected fault type
-        filtered_graph = df[["Transformer", "Date", "Gas Concentration % ({})".format(gas_dropdown)]]
+        filtered_graph = df[["Transformer", "Date", "Date Only", "Gas Concentration % ({})".format(gas_dropdown)]]
         # filtered_graph = df.loc[:, ["Date ({})".format(month_dropdown), "Gas Concentration ({})".format(gas_dropdown)]]
 
         print(filtered_graph)
@@ -176,14 +176,17 @@ def init_callbacks(dash_app):
         colors = {"text": "#7FDBFF"}
 
         # Create the time series graph
+        date_str = df[["Date"]]
         fig = go.Figure()
         fig.add_trace(
             go.Scatter(
                 x=filtered_graph["Date"],
                 y=filtered_graph["Gas Concentration % ({})".format(gas_dropdown)],
                 mode="lines+markers",
-                name="Fault Type",
+                name="",
                 marker=dict(color='#bc2128', line=dict(color='#bc2128')),
+                hovertemplate=gas_dropdown+": %{customdata[0]}%<br>"+"Date: "+"%{customdata[1]}",
+                customdata=df[["Gas Concentration % ({})".format(gas_dropdown), "Date Only"]]
                 # hovertemplate="Record: %{customdata[0]}<br>"
                 # + "Acetylene: %{customdata[1]}%<br>"
                 # + "Hydrogen: %{customdata[2]}%<br>"
@@ -210,7 +213,7 @@ def init_callbacks(dash_app):
         fig.layout.plot_bgcolor = "#f8f8f8"
 
         fig.update_traces(
-            marker=dict(size=14, line=dict(width=2), symbol="circle"),
+            marker=dict(size=8, line=dict(width=1), symbol="circle"),
         )
 
         fig.update_layout(

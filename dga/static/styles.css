@@ -121,10 +121,10 @@ svg {
 }
 
 .bg-primary-400 {
-  background-color: var(--clr-primary-400);
+  background-color: #bc2128;
 }
 .bg-accent-400 {
-  background-color: var(--clr-accent-400);
+  background-color: #f8f8f8;
 }
 .bg-accent-100 {
   background-color: var(--clr-accent-300);
@@ -307,28 +307,34 @@ body {
   padding: .4em 2em;
   font-weight: var(--fw-semi-bold);
   cursor: pointer;
-
-  background-color: var(--clr-accent-300);
-  border: 1px solid var(--clr-neutral-300);
+  background-color: #fff2f3;
+  border: 1px solid #bc2128;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
   border-radius: 32px;
+  color: #bc2128;
 }
 
 .button a {
   text-decoration: none;
-  color: var(--clr-primary-400);
+  color: #788b9b;
 }
 
 .button[data-type="inverted"] {
-  background-color: var(--clr-neutral-100);
+  background-color: #f0f8ff;
+  border: 1px solid #788b9b !important;
 }
 
 .button:is(:hover, :focus-visible) {
-  background-color: var(--clr-accent-200);
+  background-color: #bc2128;
+  color: white;
 }
 
 .button[data-type="inverted"]:is(:hover, :focus-visible) {
-  background-color: var(--clr-accent-100);
+  background-color: #788b9b;
+}
+
+.button[data-type="inverted"]:is(:hover, :focus-visible) > a {
+  color: white;
 }
 
 .button.delete {
