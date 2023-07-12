@@ -1,7 +1,12 @@
-{% with errors = get_flashed_messages(category_filter=['error']) %} {% if errors
-%}
-<p class="fw-semibold" style="color: firebrick">Error: {{ errors }}</p>
+{% with message = get_flashed_messages(category_filter=['danger']) %} {% if
+message %}
+<div class="alert alert-danger" role="alert" style="color: firebrick">
+  Error: {{ message }}
+</div>
 {% endif %} {% endwith %} {% with message =
-get_flashed_messages(category_filter=['msg']) %} {% if message %}
-<p class="fw-semibold" style="color: green">{{ message }}</p>
+get_flashed_messages(category_filter=['info']) %} {% if message %}
+<div class="alert alert-info" role="alert">Info: {{ message }}</div>
+{% endif %} {% endwith %} {% with message =
+get_flashed_messages(category_filter=['success']) %} {% if message %}
+<div class="alert alert-success" role="alert">{{ message }}</div>
 {% endif %} {% endwith %}

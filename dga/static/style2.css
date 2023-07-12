@@ -100,6 +100,25 @@
       transform: translateX(30%);
     }
   }
+
+  .btn-merged > button:hover svg {
+    fill: white !important;
+  }
+
+  .btn-merged > button:nth-child(2) > svg {
+    color: #00008B;
+    fill: #00008B;
+  }
+
+  .btn-merged > button:nth-child(2):hover {
+    border: 1px solid #00008B;
+    background-color: #00008B;
+  }
+
+  .btn-merged > button:nth-child(1):hover {
+    border: 1px solid #bc2128;
+    background-color: #bc2128;
+  }
   
   .record-button {
     cursor: pointer;
@@ -216,4 +235,10 @@
 
   .card.selected {
     border: 1px solid rgb(102, 102, 102);
+    background-color: #e9ecef;
+  }
+
+  .card:hover {
+    border: 1px solid rgb(102, 102, 102);
+    background-color: #e9ecef;
   }

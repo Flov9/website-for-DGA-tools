@@ -6,12 +6,13 @@ load_dotenv()
 
 firebaseConfig = {
     'apiKey': os.getenv('FIREBASE_API_KEY'),
-    'authDomain': "dga-tools.firebaseapp.com",
-    'databaseURL': "https://dga-tools-default-rtdb.asia-southeast1.firebasedatabase.app",
-    'projectId': "dga-tools",
-    'storageBucket': "dga-tools.appspot.com",
-    'messagingSenderId': "607330409462",
-    'appId': "1:607330409462:web:fc8fe095424b2f518b45d7"
+    'authDomain': "project-dga.firebaseapp.com",
+    'databaseURL': "https://project-dga-default-rtdb.asia-southeast1.firebasedatabase.app",
+    'projectId': "project-dga",
+    'storageBucket': "project-dga.appspot.com",
+    'messagingSenderId': "713322540106",
+    'appId': "1:713322540106:web:10b2ad2045953722364ab3",
+    'measurementId': "G-824K53MBXG"
 }
 
 firebase = pyrebase.initialize_app(firebaseConfig)

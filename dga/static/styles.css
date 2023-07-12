@@ -121,10 +121,13 @@ svg {
 }
 
 .bg-primary-400 {
-  background-color: #bc2128;
+  background-image: url("images/transformer.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .bg-accent-400 {
-  background-color: #f8f8f8;
+  background: rgba(255,255,255,0.8);
 }
 .bg-accent-100 {
   background-color: var(--clr-accent-300);

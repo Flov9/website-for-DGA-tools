@@ -8,6 +8,7 @@ from flask import (
     flash,
     session,
     Blueprint,
+    current_app as app,
 )
 from flask_mail import Mail, Message
 from dga import db, auth
@@ -67,14 +68,14 @@ def records():
             transformers.append(transformer.key())
 
     if request.method == "POST":
+        # request from scripts.js
         action = request.form.get("type", None)
         transformer_selected = request.form.get("transformer_selected", None)
-        print(action)
         print(transformer_selected)
 
+        # request from record.html
         if request.form.get("action") == "add":
             transformer_name = request.form.get("transformer", None)
-            print(transformer_name)
 
             if transformers_path is None:
                 db.child("records").child(user["localId"]).set({transformer_name: ""})
@@ -87,6 +88,7 @@ def records():
 
         elif action == "update":
             record_selected = request.form.get("record_selected", None)
+            print(record_selected)
 
             keys_and_timestamps = display_records(user, transformer_selected)
             print(keys_and_timestamps)
@@ -116,88 +118,45 @@ def records():
 
             return jsonify({"kt": keys_and_timestamps})
 
-    # if request.method == "POST":
-    #     if record_selected is None:
-    #         flash("Please select a record", "error")
-    #         return render_template("records.html", kt=keys_and_timestamps)
+        elif action == "delete":
+            print("delete")
+            record_selected = request.form.get("record_selected", None)
+            db.child("records").child(user["localId"]).child(
+                transformer_selected
+            ).child(record_selected).remove()
 
-    #     if request.form["action"] == "delete":
-    #         # print("Delete button pressed")
-    #         db.child("records").child(user["localId"]).child(record_selected).remove()
+            return jsonify({"status": "success"})
+            # flash(f"{record_selected} deleted successfully", "success")
+            # return redirect(url_for("rtdatabase.records"))
 
-    #         flash(f"{record_selected} deleted successfully", "msg")
-    #         return redirect(url_for("rtdatabase.records"))
+        elif action == "email":
+            print("email")
+            record_selected = request.form.get("record_selected", None)
+            query_dict = dict(get_record(user, transformer_selected, record_selected))
 
-    #     else:
-    #         query_dict = dict(get_record(user, record_selected))
+            email = auth.get_account_info(session["idToken"])["users"][0]["email"]
+            message = Message("Hello", recipients=[email], charset="utf-8")
+            message_body = f'Hello, this is the results of your analysis from the record named "{record_selected}":\n'
 
-    #         if request.form["action"] == "email":
-    #             email = auth.get_account_info(session["idToken"])["users"][0]["email"]
-    #             message = Message("Hello", recipients=[email])
-    #             message_body = f"Hello, this is the results of your analysis from the record named \"{record_selected}\":\n"
+            for key, value in query_dict.items():
+                message_body += f"{key}: {value}\n"
 
-    #             for key, value in query_dict.items():
-    #                 message_body += f"{key}: {value}\n"
+            with app.open_resource("static/images/dt1.png") as fp:
+                message.attach("triangle1.png", "image/png", fp.read())
+            with app.open_resource("static/images/dt4.png") as fp:
+                message.attach("triangle1.png", "image/png", fp.read())
+            with app.open_resource("static/images/dt5.png") as fp:
+                message.attach("triangle1.png", "image/png", fp.read())
+            with app.open_resource("static/images/dp1.png") as fp:
+                message.attach("triangle1.png", "image/png", fp.read())
+            with app.open_resource("static/images/dp2.png") as fp:
+                message.attach("triangle1.png", "image/png", fp.read())
 
-    #             with app.open_resource("static/images/dt1.png") as fp:
-    #                 message.attach("triangle1.png", "image/png", fp.read())
-    #             with app.open_resource("static/images/dt4.png") as fp:
-    #                 message.attach("triangle1.png", "image/png", fp.read())
-    #             with app.open_resource("static/images/dt5.png") as fp:
-    #                 message.attach("triangle1.png", "image/png", fp.read())
-    #             with app.open_resource("static/images/dp1.png") as fp:
-    #                 message.attach("triangle1.png", "image/png", fp.read())
-    #             with app.open_resource("static/images/dp2.png") as fp:
-    #                 message.attach("triangle1.png", "image/png", fp.read())
+            message.body = safe_encode(message_body)
 
-    #             message.body = message_body
+            mail.send(message)
 
-    #             mail.send(message)
-    #             flash("Records sent to email", "msg")
-
-    #         else:
-    #             print(query_dict)
-
-    #             hydrogen = int(query_dict["hydrogen"])
-    #             methane = int(query_dict["methane"])
-    #             acetylene = int(query_dict["acetylene"])
-    #             ethylene = int(query_dict["ethylene"])
-    #             ethane = int(query_dict["ethane"])
-    #             cmonoxide = int(query_dict["cmonoxide"])
-    #             cdioxide = int(query_dict["cdioxide"])
-
-    #             img = None
-    #             fault_type = None
-    #             selected_val = None
-    #             if request.form["action"] == "triangle1":
-    #                 img = 1
-    #                 fault_type = dt1(ethylene, methane, acetylene)
-    #                 selected_val = "triangle1"
-    #             elif request.form["action"] == "triangle4":
-    #                 img = 2
-    #                 fault_type = dt4(methane, hydrogen, ethane)
-    #                 selected_val = "triangle4"
-    #             elif request.form["action"] == "triangle5":
-    #                 img = 3
-    #                 fault_type = dt5(ethylene, methane, ethane)
-    #                 selected_val = "triangle5"
-    #             elif request.form["action"] == "pentagon1":
-    #                 img = 4
-    #                 fault_type = pentagon1(ethane, hydrogen, acetylene, ethylene, methane)
-    #                 selected_val = "pentagon1"
-    #             elif request.form["action"] == "pentagon2":
-    #                 img = 5
-    #                 fault_type = pentagon2(ethane, hydrogen, acetylene, ethylene, methane)
-    #                 selected_val = "pentagon2"
-
-    #             return render_template(
-    #                 "records.html",
-    #                 img=img,
-    #                 fault=fault_type,
-    #                 selected_val=selected_val,
-    #                 kt=keys_and_timestamps,
-    #                 record_selected=record_selected,
-    #             )
+            return jsonify({"status": "success"})
 
     return render_template(
         "records.html",
@@ -206,18 +165,19 @@ def records():
     )
 
 
+def safe_encode(str):
+    try:
+        return str.encode("ascii")
+    except UnicodeEncodeError:
+        return str.encode("ascii", "ignore").decode("ascii")
+
+
 def get_current_user():
     try:
         return auth.get_account_info(session["idToken"])["users"][0]
     except:
         flash("Session expired, please login again", "error")
         return redirect(url_for("authentication.index"))
-
-
-def get_transformer_data(user, transformer):
-    path = db.child("records").child(user["localId"]).child("transformers").get()
-
-    return path
 
 
 def add_record(user, transformer):
@@ -283,6 +243,18 @@ def display_records(user, transformer):
         keys_and_timestamps = {"No records found": ""}
 
     return keys_and_timestamps
+
+
+def get_record(user, transformer, tag_no):
+    record = (
+        db.child("records")
+        .child(user["localId"])
+        .child(transformer)
+        .child(tag_no)
+        .get()
+    )
+
+    return record.val()
 
 
 def generate_tag_number(user, transformer):

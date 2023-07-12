@@ -13,7 +13,7 @@ class Config:
     FLASK_APP = "app.py"
     
     # API
-    # FIREBASE_API_KEY = environ.get('FIREBASE_API_KEY')
+    FIREBASE_API_KEY = environ.get('FIREBASE_API_KEY')
     
     # Flask-Mail
     DEBUG = True
